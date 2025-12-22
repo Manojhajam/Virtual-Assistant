@@ -7,4 +7,4 @@ const userSchema = new Schema({
     }
 })
 
-const user = model("User",userSchema)
+const user = model("User", userSchema);
