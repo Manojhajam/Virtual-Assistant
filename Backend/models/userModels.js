@@ -5,23 +5,29 @@ const userSchema = new Schema(
     name: {
       type: String,
       required: true,
-        },
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-        },
-        password: {
-            type: String,
-            required: true
-        },
-        assistantName: {
-            
-        } 
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    assistantName: {
+      type: String,
+    },
+    assistantImage: {
+      type: String,
+    },
+    history: {
+      type: String,
+    },
   },
   { timestamps: true }
 );
 
-const user = model("User", userSchema);
+const User = model("User", userSchema);
 
-export default user;
+export default User;
