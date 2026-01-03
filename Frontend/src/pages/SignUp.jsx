@@ -1,13 +1,23 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import bg from "../assets/auth.bg.jpg";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { Link } from 'react-router-dom'
+import { UserDataContext } from '../context/userContext';
 // const navigate = useNavigate(); 
 
 
 const SignUp = () => {
+  const {serverUrl} = useContext(UserDataContext)
   const [showPassword, setShoewpassword] = useState(false);
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const handleSignUp = async () => {
+    
+  }
+
   return (
     <div
       className="w-full h-screen bg-center bg-cover bg-no-repeat flex justify-center items-center"
@@ -22,12 +32,18 @@ const SignUp = () => {
           type="text"
           placeholder="Enter your Name"
           className="w-full h-15 outline-none border-2 border-white bg-transparent text-white placeholder-gray-300 px-5 py-2.5 rounded-full text-xl"
+          required
+          onChange={(e) => setName(e.target.value)}
+          value={name}
         />
 
         <input
           type="email"
           placeholder="Email"
           className="w-full h-15 outline-none border-2 border-white bg-transparent text-white placeholder-gray-300 px-5 py-2.5 rounded-full text-[18px]"
+          required
+          onChange={(e) => setEmail(e.target.value)}
+          value={email}
         />
 
         <div className="w-full h-15 border-2 border-white bg-transparent text-white rounded-full text-[18px] relative">
@@ -35,6 +51,9 @@ const SignUp = () => {
             type={showPassword ? "text" : "password"}
             placeholder="password"
             className="w-full h-full outline-none border-white bg-transparent text-white placeholder-gray-300 px-5 py-2.5 rounded-full"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
           />
           {!showPassword && (
             <IoEye
@@ -55,11 +74,11 @@ const SignUp = () => {
           Sign Up
         </button>
 
-        <p
-          className="text-white text-[18px] cursor-pointer"
-        >
+        <p className="text-white text-[18px] cursor-pointer">
           Already have an account ?{" "}
-          <Link to={"/signin"} className='text-blue-400 font-semibold'>Sign In</Link>
+          <Link to={"/signin"} className="text-blue-400 font-semibold">
+            Sign In
+          </Link>
         </p>
       </form>
     </div>
