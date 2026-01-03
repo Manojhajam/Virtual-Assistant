@@ -1,29 +1,45 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState } from "react";
 import bg from "../assets/auth.bg.jpg";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
-import { Link } from 'react-router-dom'
-import { UserDataContext } from '../context/userContext';
-// const navigate = useNavigate(); 
-
+import { Link } from "react-router-dom";
+import { UserDataContext } from "../context/userContext";
+import axios from "axios";
 
 const SignUp = () => {
-  const {serverUrl} = useContext(UserDataContext)
-  const [showPassword, setShoewpassword] = useState(false);
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const { serverUrl } = useContext(UserDataContext);
+  const [showPassword, setShowpassword] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSignUp = async () => {
-    
-  }
+  const handleSignUp = async (e) => {
+    e.preventDefault()
+    try {
+      let result = await axios.post(
+        `${serverUrl}/api/auth/signup`,
+        {
+          name,
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
+      console.log(result)
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   return (
     <div
       className="w-full h-screen bg-center bg-cover bg-no-repeat flex justify-center items-center"
       style={{ backgroundImage: `url(${bg})` }}
     >
-      <form className="w-[90%] px-5 h-150 max-w-125 bg-[#0000003d] backdrop-blur shadow-lg shadow-black-950 flex flex-col items-center justify-center gap-5 ">
+      <form
+        className="w-[90%] px-5 h-150 max-w-125 bg-[#0000003d] backdrop-blur shadow-lg shadow-black-950 flex flex-col items-center justify-center gap-5"
+        onSubmit={handleSignUp}
+      >
         <h1 className="text-white text-[30px] font-semibold mb-7.5">
           Register to <span className="text-blue-400">Virtual Assistant</span>
         </h1>
@@ -31,6 +47,7 @@ const SignUp = () => {
         <input
           type="text"
           placeholder="Enter your Name"
+          autoComplete="name"
           className="w-full h-15 outline-none border-2 border-white bg-transparent text-white placeholder-gray-300 px-5 py-2.5 rounded-full text-xl"
           required
           onChange={(e) => setName(e.target.value)}
@@ -40,6 +57,7 @@ const SignUp = () => {
         <input
           type="email"
           placeholder="Email"
+          autoComplete="username"
           className="w-full h-15 outline-none border-2 border-white bg-transparent text-white placeholder-gray-300 px-5 py-2.5 rounded-full text-[18px]"
           required
           onChange={(e) => setEmail(e.target.value)}
@@ -50,6 +68,7 @@ const SignUp = () => {
           <input
             type={showPassword ? "text" : "password"}
             placeholder="password"
+            autoComplete="new-password"
             className="w-full h-full outline-none border-white bg-transparent text-white placeholder-gray-300 px-5 py-2.5 rounded-full"
             required
             onChange={(e) => setPassword(e.target.value)}
@@ -58,14 +77,14 @@ const SignUp = () => {
           {!showPassword && (
             <IoEye
               className="absolute top-5 right-5 w-5 h-5 text-white cursor-pointer"
-              onClick={() => setShoewpassword(true)}
+              onClick={() => setShowpassword(true)}
             />
           )}
 
           {showPassword && (
             <IoEyeOff
               className="absolute top-5 right-5 w-5 h-5 text-white cursor-pointer"
-              onClick={() => setShoewpassword(false)}
+              onClick={() => setShowpassword(false)}
             />
           )}
         </div>
@@ -83,6 +102,6 @@ const SignUp = () => {
       </form>
     </div>
   );
-}
+};
 
-export default SignUp;  
+export default SignUp;
