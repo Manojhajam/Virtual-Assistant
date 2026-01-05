@@ -12,10 +12,12 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false)
 
   const handleSignIn = async (e) => {
     e.preventDefault();
     setErr("");
+    setLoading(true)
     try {
       let result = await axios.post(
         `${serverUrl}/api/auth/signin`,
@@ -26,10 +28,12 @@ const SignIn = () => {
         { withCredentials: true }
       );
       console.log(result);
+      setLoading(false)
       setEmail("");
       setPassword("");
     } catch (error) {
       console.log(error);
+      setLoading(false)
       setErr(error.response.data.message);
     }
   };
@@ -84,8 +88,8 @@ const SignIn = () => {
 
         {err.length > 0 && <p className="text-red-500 text-[17px]">*{err}</p>}
 
-        <button className="min-w-37.5 h-15 mt-7.5 bg-white rounded-full text-black font-semibold text-[19px]">
-          Sign In
+        <button className="min-w-37.5 h-15 mt-7.5 bg-white rounded-full text-black font-semibold text-[19px]" disabled={loading}>
+          {loading? "Loading..": "Sign In"}
         </button>
 
         <p className="text-white text-[18px] cursor-pointer">
