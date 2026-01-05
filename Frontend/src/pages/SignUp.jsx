@@ -12,9 +12,11 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [err, setErr] = useState("")
 
   const handleSignUp = async (e) => {
     e.preventDefault()
+    setErr("")
     try {
       let result = await axios.post(
         `${serverUrl}/api/auth/signup`,
@@ -26,8 +28,12 @@ const SignUp = () => {
         { withCredentials: true }
       );
       console.log(result)
+      setName("")
+      setEmail("")
+      setPassword("")
     } catch (error) {
       console.log(error)
+      setErr(error.response.data.message)
     }
   };
 
@@ -89,6 +95,8 @@ const SignUp = () => {
           )}
         </div>
 
+        {err.length > 0 && <p className="text-red-500 text-[17px]">*{err}</p>}
+        
         <button className="min-w-37.5 h-15 mt-7.5 bg-white rounded-full text-black font-semibold text-[19px]">
           Sign Up
         </button>
