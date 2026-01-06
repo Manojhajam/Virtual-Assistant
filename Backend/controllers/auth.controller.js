@@ -58,7 +58,7 @@ export const Login = async (req, res) => {
       });
     }
 
-    const token = await genToken(User._id);
+    const token = await genToken(user._id);
 
     res.cookie("token", token, {
       httpOnly: true,

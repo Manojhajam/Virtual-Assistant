@@ -3,7 +3,7 @@ import bg from "../assets/auth.bg.jpg";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import { UserDataContext } from "../context/userContext";
+import { UserDataContext } from "../context/userContext.jsx";
 import axios from "axios";
 
 const SignUp = () => {
@@ -13,7 +13,7 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("")
-  comst [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleSignUp = async (e) => {
     e.preventDefault()
